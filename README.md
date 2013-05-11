@@ -1,0 +1,3 @@
+Usage: node slowbaud.js <interval> <file>....
+
+Interval should be between 50 and 250 for reasonable typing.  Specify as many filenames as you like.

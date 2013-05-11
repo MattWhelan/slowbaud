@@ -1,0 +1,9 @@
+{
+  "name": "slowbaud",
+  "version": "0.0.1",
+  "description": "Prints files slowly",
+  "main": "slowbaud.js",
+  "repository": "",
+  "author": "Matt Whelan",
+  "license": "BSD"
+}
