@@ -1,15 +1,17 @@
 var SlowTransform = require("./slowtransform"),
+	TypeText = require("./typetext"),
 	fs = require("fs");
 
-function SlowBaud(baudRate, filenames){
+function SlowBaud(baudRate, filenames, Transform){
 	var charRate = baudRate / 9.0; //N,8,1
 	this.interval = 1000 / charRate;
 	this.filenames = filenames;
+	this.Transform = Transform;
 }
 
 SlowBaud.prototype.printFile = function printFile(name, next){
 	process.stdout.write("\n\n-----------------------------------" + name + ":\n\n");
-	var st = new SlowTransform(this.interval);
+	var st = new (this.Transform)(this.interval);
 
 	st.on("readable", function(){
 		process.stdout.write(st.read());
@@ -31,13 +33,20 @@ SlowBaud.prototype.processFiles = function processFiles(){
 
 if(require.main == module){
 	if(process.argv.length < 4){
-		process.stderr.write("Usage: node slowbaud <baudRate> <file> [files...]\n");
+		process.stderr.write("Usage: node slowbaud [-t] <baudRate> <file> [files...]\n");
 		process.exit(1);
 	}
 	var args = process.argv.slice(2),
-		baudRate = parseInt(args.shift());
+		Transform = SlowTransform,
+		baudRate = args.shift();
 
-	var sb = new SlowBaud(baudRate, args);
+	if(baudRate == '-t'){
+		Transform = TypeText;
+		baudRate = args.shift();
+	}
+	baudRate = parseInt(baudRate);
+
+	var sb = new SlowBaud(baudRate, args, Transform);
 	sb.processFiles();
 	process.stdout.write("\n");
 }

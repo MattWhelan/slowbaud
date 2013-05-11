@@ -5,5 +5,8 @@
   "main": "slowbaud.js",
   "repository": "",
   "author": "Matt Whelan",
-  "license": "BSD"
+  "license": "BSD",
+  "dependencies": {
+    "randgen": "0.0.2"
+  }
 }

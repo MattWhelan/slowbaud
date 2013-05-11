@@ -18,12 +18,16 @@ SlowTransform.prototype._transform = function(chunk, encoding, done){
 		if(i < chunk.length){
 			that.push(chunk.slice(i, i+1));
 			++i;
-			setTimeout(process, that.interval);
+			setTimeout(process, that.getInterval());
 		}else{
 			done();
 		}
 	}
-	setTimeout(process, this.interval);
+	setTimeout(process, this.getInterval());
+}
+
+SlowTransform.prototype.getInterval = function getInterval(){
+	return this.interval;
 }
 
 module.exports = SlowTransform;
