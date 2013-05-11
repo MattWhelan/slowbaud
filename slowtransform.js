@@ -20,7 +20,6 @@ SlowTransform.prototype._transform = function(chunk, encoding, done){
 			++i;
 			setTimeout(process, that.interval);
 		}else{
-			that.push(null);
 			done();
 		}
 	}

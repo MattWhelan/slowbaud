@@ -19,6 +19,7 @@ SlowBaud.prototype.printFile = function printFile(name, next){
 
 	fs.readFile(name, function(err, data){
 		st.write(data);
+		st.end();
 	});
 }
 
